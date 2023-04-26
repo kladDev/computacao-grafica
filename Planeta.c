@@ -17,7 +17,12 @@ void display(void)
       glutWireSphere(1.0, 20, 16);
    glPopMatrix();
 
-   glTranslatef(1.5, 0.0, 0.0);
+   glRotatef(ano,0,1,0);
+   glTranslatef(2, 0.0, 0.0);
+
+   // glRotatef(dia,0,0,1);
+   // glTranslatef(2, 0.0, 0.0);
+
    glPushMatrix();
       glColor3f(0.0, 0.0, 0.5);
       glutWireSphere(0.2, 10, 8);

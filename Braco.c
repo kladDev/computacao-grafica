@@ -12,16 +12,27 @@ void display(void){
   glPushMatrix();
 
   glPushMatrix();
-    glColor3f(0.5,0.0,0.0);
-    glScalef(2.0, 0.4, 1.0);
-    glutWireCube(1.0);
+      glTranslatef(-1, 0, 0);
+      glRotatef(ombro, 0, 0, 1);
+      glTranslatef(1, 0, 0);
+      
+      glColor3f(0.5,0.0,0.0);
+      glScalef(2.0, 0.4, 1.0);
+      glutWireCube(1.0);
+
   glPopMatrix();
 
-  glTranslatef(2.0, 0.0, 0.0);
   glPushMatrix();
+    glTranslatef(1, 0, 0);
+    glRotatef(cotovelo, 0, 0, 1);
+    glTranslatef(1.0, 0.0, 0.0);
+  
     glColor3f(0.0,0.0,0.5);
     glScalef(2.0, 0.4, 1.0);
     glutWireCube(1.0);
+    
+    glTranslatef(2.0, 0.0, 0.0);
+    
   glPopMatrix();
 
   glPopMatrix();

@@ -11,15 +11,14 @@ void display(void){
   glClear(GL_COLOR_BUFFER_BIT);
   glPushMatrix();
 
+  glTranslatef(-1, 0, 0);
+  glRotatef(ombro, 0, 0, 1);
+  glTranslatef(1, 0, 0);
+
   glPushMatrix();
-      glTranslatef(-1, 0, 0);
-      glRotatef(ombro, 0, 0, 1);
-      glTranslatef(1, 0, 0);
-      
       glColor3f(0.5,0.0,0.0);
       glScalef(2.0, 0.4, 1.0);
       glutWireCube(1.0);
-
   glPopMatrix();
 
   glPushMatrix();
@@ -57,6 +56,7 @@ void keyboard (unsigned char key, int x, int y){
     break;
   case 'd':
     ombro = (ombro - 5) % 360;
+    
     glutPostRedisplay();
     break;
   case 's':
@@ -73,6 +73,12 @@ void keyboard (unsigned char key, int x, int y){
   default:
     break;
   }
+
+  if (cotovelo > 45) cotovelo = 45;
+  if(cotovelo < -45) cotovelo = -45;
+  
+  if (ombro > 90) ombro = 90;
+  if(ombro < -90) ombro = -90;
 }
 
 int main(int argc, char** argv){

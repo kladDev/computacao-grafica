@@ -128,20 +128,18 @@ void keyboard(unsigned char key, int x, int y)
 
 	case 'a':
 		rotHead += 5;
-		rotBlade += 20;
-		break;
 
-	case 'd':
-		rotHead -= 5;
-		rotBlade -= 20;
+		if (rotHead > 60)
+			rotHead -= 5;
+		if (rotHead < -60)
+			rotHead += 5;
+		rotBlade += 20;
 		break;
 
 	default:
 		break;
 	}
 
-	if (rotHead > 60) rotHead -= 5;
-	if (rotHead < -60) rotHead += 5;
 	glutPostRedisplay();
 }
 

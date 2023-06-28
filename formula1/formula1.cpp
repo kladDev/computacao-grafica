@@ -38,6 +38,7 @@ typedef struct model
 } model;
 
 model body, tyre_front, tyre_back;
+int direcionar_direita = 0, direcionar_esquerda = 0;
 
 void loadObj(const char *filename, model &model)
 {
@@ -239,13 +240,31 @@ void displayPersp(void)
 		glPushMatrix();
 		{
 			glTranslatef(-1.2, 0, 0.7);
+			glRotatef(direcionar_direita, 0, 1, 0);
 			renderModel(tyre_front);
 		}
 		glPopMatrix();
 
 		glPushMatrix();
 		{
+			glTranslatef(-1.2, 0, -0.7);
+			glRotatef(180, 1, 0, 0);
+			renderModel(tyre_front);
+		}
+		glPopMatrix();
+
+
+		glPushMatrix();
+		{
 			glTranslatef(2.0, 0, 0.75);
+			renderModel(tyre_back);
+		}
+		glPopMatrix();
+
+		glPushMatrix();
+		{
+			glTranslatef(2.0, 0, -0.75);
+			glRotatef(180, 1, 0, 0);
 			renderModel(tyre_back);
 		}
 		glPopMatrix();
@@ -257,6 +276,32 @@ void displayPersp(void)
 
 void init()
 {
+	GLfloat posicaoLuz[4] = {0.0, 5.0, 0.0, 1.0};
+	GLfloat luzAmbiente[4] = {0.15, 0.15, 0.15, 1.0};
+	GLfloat luzDifusa[4] = {0.9, 0.9, 0.9, 1.0};
+	GLfloat luzEspecular[4] = {0.9, 0.9, 0.9, 1.0};
+	GLfloat especularidade[4] = {1.0, 1.0, 1.0, 1.0};
+
+	GLint especMaterial = 50;
+
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+	glShadeModel(GL_SMOOTH);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
+	glMateriali(GL_FRONT, GL_SHININESS, especMaterial);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
+	glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
+
 	loadTGA("f1.tga");
 
 	loadObj("f1.obj", body);
@@ -300,6 +345,12 @@ void specialKeys(int key, int x, int y)
 		angleX = 0;
 		angleY = 0;
 		cam++;
+		break;
+	case 'x':
+		direcionar_direita += 25;
+		break;
+	case 'z':
+		direcionar_esquerda += 25;
 		break;
 	case 27:
 		exit(0);
